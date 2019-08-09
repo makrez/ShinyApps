@@ -1,0 +1,60 @@
+.skin-blue .main-sidebar {
+   background-color: #FF0000;
+}
+
+#input_row1 > div:nth-child(2){
+  display:inline-block;
+  margin-left: -50px;
+}
+
+#input_row1 > div:nth-child(1){
+  display:inline-block;
+}
+
+#input_row1 > div:nth-child(3){
+  display:inline-block;
+  margin-bottom: 50px;
+  margin-left: -50px;
+}
+
+#input2_row2{
+  margin-top: -50px;
+}
+#input2_row2 > div:nth-child(2){
+  display:inline-block;
+  margin-left: -50px;
+}
+
+#input2_row2 > div:nth-child(1){
+  display:inline-block;
+}
+
+#input2_row2 > div:nth-child(3){
+  display:inline-block;
+  margin-bottom: 50px;
+  margin-left: -50px;
+}
+
+.selectize-input{
+  width:200px;
+}
+
+#genome_size {
+  width: 200px;
+}
+
+#x_minimum {
+  width: 200px;
+}
+
+#x_maximum {
+  width: 200px;
+}
+
+#target_coverage{
+  width: 200px;
+}
+
+#coverage_plot{
+  width:80% !important;
+}
