@@ -22,9 +22,7 @@ ui <- dashboardPage(
     actionButton("add2", "Add"),
     radioButtons("add_plots", "Plots", c("Plot1", "Plot2")),
     actionButton("remove_plots", "Remove"),
-    hr(),
-    div(style = "position:absolute;right:4em;", downloadButton("report", "Generate report"))
-  ),
+    hr()),
   dashboardBody(
     fluidRow(
       tags$div(id="placeholder")
