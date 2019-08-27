@@ -2,6 +2,30 @@
    background-color: #FF0000;
 }
 
+/* Info Box */
+.infobox{
+  width: 100%;
+}
+
+/* Parameters Rwo 1 */
+
+.params_row1 {
+  display: flex;
+}
+
+.params_row1_e1{
+  width: 15%;
+}
+
+.params_row1_e2{
+  width: 15%;
+}
+
+.params_row1_e3{
+  width: 70%;
+  float:right;
+}
+
 #input_row1 > div:nth-child(2){
   display:inline-block;
   margin-left: -50px;

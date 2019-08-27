@@ -1,0 +1,13 @@
+---
+title: "Dynamic report"
+output: html_document
+params:
+  sequencer: NA
+---
+
+```{r}
+# The `params` object is available in the document.
+print(params$sequencer)
+```
+
+A plot of `params$n` random points.
