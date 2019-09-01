@@ -1,5 +1,7 @@
 server <- function(input, output, session){
   
+  plot_list <<- list()
+  
   clusters <- reactive({
     if (input$sequencer == "MiSeq/v2") {
       15*10^6
@@ -22,14 +24,6 @@ server <- function(input, output, session){
   
   t_coverage <- reactive({
     input$target_coverage
-  })
-  
-  output$text_sequencer <- reactive({
-    if (input$sequencer == "MiSeq") {
-      "The Max Output is set to MiSeq"
-    } else if  (input$sequencer == "NextSeq") {
-      "The Max Output is set to NextSeq"
-    }
   })
   
   # output$selected_sequencer <-renderUI(
@@ -84,8 +78,24 @@ server <- function(input, output, session){
       mutate(coverage = round(coverage + 3, digits = 0)) %>% 
       head(n=1) %>% 
       pull
-    print(t)
     return(t)
+  })
+  
+  xlim_maximum <- reactive({
+    val <- df_calculated() %>% filter(coverage >= t_coverage()) %>% 
+      filter(number_of_samples == max(number_of_samples)) %>% 
+      pull(number_of_samples) + 20
+    return(val)
+  })
+  
+  xlim_minimum <- reactive({
+    val <- df_calculated() %>% filter(coverage >= t_coverage()) %>% 
+      filter(number_of_samples == max(number_of_samples)) %>% 
+      pull(number_of_samples) - 20
+    if (val < 0){
+      val <- 0
+    }
+    return(val)
   })
 
   output$limit <- renderText({
@@ -95,12 +105,28 @@ server <- function(input, output, session){
   output$coverage_plot <- renderPlotly({
     g <- ggplot(data =df_calculated(), aes(x=number_of_samples, y = coverage)) +
       geom_line() +
-      #scale_x_continuous(limits = c(input$x_minimum, input$x_maximum), expand = c(0,0))+
+      scale_x_continuous(limits = c(xlim_minimum(), xlim_maximum()), expand = c(0,0))+
       scale_y_continuous(limits =  c(0, ylim_maximum()))+
       geom_hline(yintercept = input$target_coverage, colour = "red")
     
+    plot_list[["report"]] <<- expr(plot(!!g))
+    
     plotly::ggplotly(g)%>% 
       layout(height = input$plotHeight, autosize=TRUE)
+  })
+  
+  # Best sample number
+  
+  calculated_number_of_samples <- reactive({
+    val <- df_calculated() %>% filter(coverage >= t_coverage()) %>% 
+      filter(number_of_samples == max(number_of_samples)) %>% 
+      pull(number_of_samples)
+    return(val)
+  })
+  
+  output$best_samplenumber <- renderText({
+    string <- paste("Maximum number of Samples:", calculated_number_of_samples())
+    return(string)
   })
   
   # Report generation
@@ -114,9 +140,18 @@ server <- function(input, output, session){
       # can happen when deployed).
       tempReport <- file.path(tempdir(), "report.Rmd")
       file.copy("report.Rmd", tempReport, overwrite = TRUE)
+    calculated_number_of_samples <<- isolate(calculated_number_of_samples())
+    print(calculated_number_of_samples)
       
       # Set up parameters to pass to Rmd document
-      params <- list(sequencer = input$sequencer)
+      params <- list(sequencer = input$sequencer,
+                     author = input$author,
+                     on_target = input$on_target_slider,
+                     target_coverage = input$target_coverage,
+                     duplicates = input$duplicates,
+                     project = input$project,
+                     projectid = input$projectid,
+                     calculated_number_of_samples = calculated_number_of_samples)
       
       # Knit the document, passing in the `params` list, and eval it in a
       # child of the global environment (this isolates the code in the document

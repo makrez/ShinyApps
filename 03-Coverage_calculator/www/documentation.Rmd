@@ -1,0 +1,20 @@
+---
+title: "Documentation"
+author: "MK"
+output: html_document
+---
+
+<head rel = "stylesheet", type = "text/css", href = "styles.css">
+
+### Target Coverage
+
+Targeted average coverage. Note that the standard deviation of the average coverage can be high.
+
+### Estimated Reads on Target
+
+For shotgun sequencing, this can usually be set to 100%. If you are interested in sequencing organellar genomes, the % of organellar DNA from the total DNA should be estimated. For plastid sequencing, this value is often at around 5%, but can vary with species or plant parts etc.
+
+
+### Duplicates (%)
+
+The number of duplicated sequences estimated for the process. This metric is strongly impacted by the number of PCR cycles applied during library preparation.

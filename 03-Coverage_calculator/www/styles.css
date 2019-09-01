@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.controls{
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
 /* Parameters Rwo 1 */
 
 .params_row1 {
@@ -26,37 +31,21 @@
   float:right;
 }
 
-#input_row1 > div:nth-child(2){
-  display:inline-block;
-  margin-left: -50px;
+.params_row2 {
+  display: flex;
 }
 
-#input_row1 > div:nth-child(1){
-  display:inline-block;
+.params_row2_e1{
+  width: 15%;
 }
 
-#input_row1 > div:nth-child(3){
-  display:inline-block;
-  margin-bottom: 50px;
-  margin-left: -50px;
+.params_row2_e2{
+  width: 15%;
 }
 
-#input2_row2{
-  margin-top: -50px;
-}
-#input2_row2 > div:nth-child(2){
-  display:inline-block;
-  margin-left: -50px;
-}
-
-#input2_row2 > div:nth-child(1){
-  display:inline-block;
-}
-
-#input2_row2 > div:nth-child(3){
-  display:inline-block;
-  margin-bottom: 50px;
-  margin-left: -50px;
+.params_row2_e3{
+  width: 70%;
+  float:right;
 }
 
 .selectize-input{
@@ -81,4 +70,12 @@
 
 #coverage_plot{
   width:80% !important;
+}
+
+h1, h2, h3{
+  margin-left: 20px;
+}
+
+p{
+  margin-left:20px;
 }
